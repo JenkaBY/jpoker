@@ -1,12 +1,13 @@
 package by.jenka.jpoker;
 
+import by.jenka.jpoker.card.sorting.CardComparator;
 import by.jenka.jpoker.common.Unicodable;
 import by.jenka.jpoker.deck.Deck;
 import by.jenka.jpoker.deck.Deck52Cards;
-import by.jenka.jpoker.deck.sorting.DeckComparator;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class JPokerRunner {
     public static void main(String[] args) {
@@ -15,17 +16,15 @@ public class JPokerRunner {
 
         printUnicodes(
                 pokerDeck.getCards().stream()
-                        .sorted(DeckComparator.BySuitAndRanks)
+                        .sorted(CardComparator.BySuitAndRanks)
                         .collect(Collectors.toList())
         );
     }
 
-    private static void printUnicodes(Collection<? extends Unicodable> codes) {
-        Integer count = 1;
-        for (Unicodable code : codes) {
-            String x = code.toUnicode();
-            System.out.println(count + ": " + x);
-            count = 1 + count;
-        }
+    private static void printUnicodes(List<? extends Unicodable> codes) {
+        int count = 1;
+        IntStream.rangeClosed(1, codes.size())
+                .mapToObj(num -> num + ": " + codes.get(num).toUnicode())
+                .forEach(System.out::println);
     }
 }

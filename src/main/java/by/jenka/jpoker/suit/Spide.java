@@ -1,13 +1,13 @@
 package by.jenka.jpoker.suit;
 
-public class Spide implements Suit {
+public class Spide extends AbstractSuit {
     @Override
     public String toUnicode() {
         return "\u2660";
     }
 
     @Override
-    public int getValue() {
-        return 3;
+    public long getValue() {
+        return 10L;
     }
 }

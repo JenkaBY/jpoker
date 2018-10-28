@@ -7,7 +7,7 @@ public final class Jack extends FrenchRank {
     }
 
     @Override
-    public int getValue() {
-        return 12;
+    public long getValue() {
+        return 10_000_000_000L;
     }
 }

@@ -1,13 +1,13 @@
 package by.jenka.jpoker.suit;
 
-public class Heart implements Suit {
+public class Heart extends AbstractSuit {
     @Override
     public String toUnicode() {
         return "\u2665";
     }
 
     @Override
-    public int getValue() {
-        return 1;
+    public long getValue() {
+        return 1L;
     }
 }

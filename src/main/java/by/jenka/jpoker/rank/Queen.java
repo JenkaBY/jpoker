@@ -7,7 +7,7 @@ public final class Queen extends FrenchRank {
     }
 
     @Override
-    public int getValue() {
-        return 13;
+    public long getValue() {
+        return 100_000_000_000L;
     }
 }

@@ -33,4 +33,21 @@ public final class StandardCard implements Card {
     public String toString() {
         return toUnicode();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StandardCard that = (StandardCard) o;
+
+        if (!suit.equals(that.suit)) return false;
+        return rank.equals(that.rank);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 12 * suit.hashCode() + rank.hashCode();
+        return result;
+    }
 }

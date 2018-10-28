@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface Deck {
     List<Card> getCards();
+
+    int getDeckSize();
 }

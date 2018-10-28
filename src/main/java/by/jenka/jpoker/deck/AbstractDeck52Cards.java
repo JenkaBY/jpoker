@@ -9,20 +9,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class AbstractDeck52Cards implements Deck {
-    protected final int size;
-
-    public AbstractDeck52Cards() {
-        this.size = 52;
-    }
+    private static final int SUIT_SIZE = 4;
+    private static final int RANK_SIZE = 13;
 
     protected Set<Suit> getAllSuits() {
-        final Set<Suit> suits = new HashSet<>(4);
+        final Set<Suit> suits = new HashSet<>(SUIT_SIZE);
         suits.addAll(Arrays.asList(new Heart(), new Diamond(), new Club(), new Spide()));
         return Collections.unmodifiableSet(suits);
     }
 
     protected Set<Rank> getAllRanks() {
-        final Set<Rank> ranks = new HashSet<>();
+        final Set<Rank> ranks = new HashSet<>(RANK_SIZE);
         ranks.addAll(Arrays.asList(
                 new Two(), new Three(), new Four(), new Five(),
                 new Six(), new Seven(), new Eight(), new Nine(),
@@ -35,4 +32,9 @@ public abstract class AbstractDeck52Cards implements Deck {
     }
 
     protected abstract void fillDeck();
+
+    @Override
+    public int getDeckSize() {
+        return getCards().size();
+    }
 }

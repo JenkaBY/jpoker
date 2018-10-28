@@ -7,7 +7,7 @@ public final class King extends FrenchRank {
     }
 
     @Override
-    public int getValue() {
-        return 14;
+    public long getValue() {
+        return 1_000_000_000_000L;
     }
 }

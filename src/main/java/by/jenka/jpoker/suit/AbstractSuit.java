@@ -1,6 +1,6 @@
-package by.jenka.jpoker.rank;
+package by.jenka.jpoker.suit;
 
-public abstract class FrenchRank implements Rank {
+public abstract class AbstractSuit implements Suit {
     @Override
     public int hashCode() {
         return Long.hashCode(getValue());
@@ -9,17 +9,14 @@ public abstract class FrenchRank implements Rank {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
+
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Rank)) {
+
+        if (!(obj instanceof Suit)) {
             return false;
         }
-        return this.getValue() == ((Rank) obj).getValue();
-    }
-
-    @Override
-    public String toString() {
-        return toUnicode();
+        return getValue() == ((Suit) obj).getValue();
     }
 }
