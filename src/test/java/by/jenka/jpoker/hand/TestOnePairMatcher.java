@@ -4,8 +4,8 @@ import by.jenka.jpoker.UtilsTest;
 import by.jenka.jpoker.card.Card;
 import by.jenka.jpoker.card.StandardCard;
 import by.jenka.jpoker.card.sorting.CardComparator;
-import by.jenka.jpoker.hand.matcher.HandMatcher;
 import by.jenka.jpoker.hand.matcher.OnePairMatcher;
+import by.jenka.jpoker.hand.matcher.shared.HandMatcher;
 import by.jenka.jpoker.hand.texasholdem.*;
 import by.jenka.jpoker.rank.*;
 import org.junit.jupiter.api.Assertions;
@@ -33,7 +33,7 @@ public class TestOnePairMatcher extends UtilsTest {
         final List<Card> fiveCards = Arrays.asList(
                 new StandardCard(HEART, new Two()),
                 new StandardCard(SPIDE, new Three()),
-                new StandardCard(CLUB, new Ace()),
+                new StandardCard(CLUB, new Queen()),
                 new StandardCard(DIAMOND, new Two()),
                 new StandardCard(DIAMOND, new Jack())
         );
@@ -53,7 +53,7 @@ public class TestOnePairMatcher extends UtilsTest {
         final List<Card> fiveCards = Arrays.asList(
                 new StandardCard(HEART, new Two()),
                 new StandardCard(SPIDE, new Three()),
-                new StandardCard(CLUB, new Ace()),
+                new StandardCard(CLUB, new Queen()),
                 new StandardCard(DIAMOND, new Two()),
                 new StandardCard(DIAMOND, new Jack()),
                 new StandardCard(CLUB, new Jack()),

@@ -3,8 +3,8 @@ package by.jenka.jpoker.hand;
 import by.jenka.jpoker.UtilsTest;
 import by.jenka.jpoker.card.Card;
 import by.jenka.jpoker.card.StandardCard;
-import by.jenka.jpoker.hand.matcher.HandMatcher;
 import by.jenka.jpoker.hand.matcher.TwoPairMatcher;
+import by.jenka.jpoker.hand.matcher.shared.HandMatcher;
 import by.jenka.jpoker.hand.texasholdem.*;
 import by.jenka.jpoker.rank.*;
 import org.junit.jupiter.api.Assertions;
@@ -41,12 +41,10 @@ public class TestTwoPairMatcher extends UtilsTest {
 
         Assertions.assertTrue(handMatcher.isMatch(), "Should be matched");
         Assertions.assertEquals(4, handMatcher.getWinnerCards().size());
-        Assertions.assertArrayEquals(
-                sort(new StandardCard(HEART, new Two()), new StandardCard(DIAMOND, new Two()),
-                        new StandardCard(SPIDE, new Three()), new StandardCard(DIAMOND, new Three())
-                ).toArray(),
-                sort(handMatcher.getWinnerCards()).toArray()
-        );
+        Object[] expected = sort(new StandardCard(HEART, new Two()), new StandardCard(CLUB, new Two()),
+                new StandardCard(SPIDE, new Three()), new StandardCard(DIAMOND, new Three())).toArray();
+        Object[] actual = sort(handMatcher.getWinnerCards()).toArray();
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -69,7 +67,7 @@ public class TestTwoPairMatcher extends UtilsTest {
         final Object[] expected = sort(
                 new StandardCard(HEART, new Two()),
                 new StandardCard(DIAMOND, new Two()),
-                new StandardCard(SPIDE, new Four()),
+                new StandardCard(SPIDE, new Three()),
                 new StandardCard(CLUB, new Three()),
                 new StandardCard(DIAMOND, new Jack()),
                 new StandardCard(CLUB, new Jack()))

@@ -34,7 +34,8 @@ public class UtilsTest {
     }
 
     protected Stream<Card> sort(List<Card> cards) {
-        return sort((Card[]) cards.toArray());
+        Card[] cardsAr = new Card[cards.size()];
+        return sort(cards.toArray(cardsAr));
     }
 
     protected List<Rank> getSortedRanks() {

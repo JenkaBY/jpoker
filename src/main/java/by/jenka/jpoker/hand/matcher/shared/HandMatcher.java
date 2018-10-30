@@ -1,7 +1,6 @@
-package by.jenka.jpoker.hand.matcher;
+package by.jenka.jpoker.hand.matcher.shared;
 
 import by.jenka.jpoker.card.Card;
-import by.jenka.jpoker.factory.RankFactory;
 import by.jenka.jpoker.rank.Rank;
 import by.jenka.jpoker.suit.Suit;
 
@@ -10,33 +9,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public abstract class HandMatcher {
     protected List<Card> hand;
-    protected List<Integer> positionRankMatcher;
-    protected List<Integer> positionSuitMatcher;
+    protected List<Integer> rankPositions;
+    protected List<Integer> suitPositions;
 
     public HandMatcher(List<Card> hand) {
         this.hand = hand;
     }
 
-    public List<Card> getWinnerCards() {
-//        TODO what happens if length of ranks will not equal 14??
-        List<Class<? extends Rank>> pairCardClasses = positionRankMatcher.stream()
-                .map(RankFactory::getRankFromPosition)
-                .map(Rank::getClass)
-                .collect(Collectors.toList());
-
-        return hand.stream()
-                .filter(card -> pairCardClasses.contains(card.getRank().getClass()))
-                .collect(Collectors.toList());
-    }
+    public abstract List<Card> getWinnerCards();
 
     public final boolean isMatch() {
         if (!hasMinSize()) {
-            positionSuitMatcher = Collections.EMPTY_LIST;
-            positionRankMatcher = Collections.EMPTY_LIST;
+            suitPositions = Collections.EMPTY_LIST;
+            rankPositions = Collections.EMPTY_LIST;
             return false;
         }
         boolean isMatch = isMatchSumRanks();
@@ -46,19 +34,19 @@ public abstract class HandMatcher {
         return isMatch;
     }
 
-    private boolean isMatchSumRanks() {
+    protected boolean isMatchSumRanks() {
         Matcher m = getPatternForRanks().matcher(getSumRankValues());
-        FinderMatchedPosition finder = new FinderMatchedPosition(m);
+        PositionFinder finder = new FinderMatchedPosition(m);
         finder.find();
-        positionRankMatcher = finder.getPositions();
+        rankPositions = finder.getPositions();
         return finder.isMatch();
     }
 
-    private boolean isMatchSumSuits() {
+    protected boolean isMatchSumSuits() {
         Matcher m = getPatternForSuits().matcher(getSumSuitValues());
-        FinderMatchedPosition finder = new FinderMatchedPosition(m);
+        PositionFinder finder = new FinderMatchedPosition(m);
         finder.find();
-        positionSuitMatcher = finder.getPositions();
+        suitPositions = finder.getPositions();
         return finder.isMatch();
     }
 
@@ -70,8 +58,8 @@ public abstract class HandMatcher {
         return hand.size() >= minHandSize();
     }
 
-    private String getSumRankValues() {
-        return String.valueOf(getSumRanks());
+    protected final String getSumRankValues() {
+        return String.format("%14d", getSumRanks());
     }
 
     private long getSumRanks() {
@@ -81,8 +69,8 @@ public abstract class HandMatcher {
                 .sum();
     }
 
-    private String getSumSuitValues() {
-        return String.valueOf(getSumSuits());
+    protected final String getSumSuitValues() {
+        return String.format("%4d", getSumSuits());
     }
 
     private long getSumSuits() {
@@ -98,7 +86,15 @@ public abstract class HandMatcher {
 
     protected abstract Pattern getPatternForSuits();
 
-    private static class FinderMatchedPosition {
+    protected interface PositionFinder {
+        void find();
+
+        boolean isMatch();
+
+        List<Integer> getPositions();
+    }
+
+    private static class FinderMatchedPosition implements PositionFinder {
         private boolean isFoundOut;
         private Matcher m;
         private List<Integer> positions;
@@ -108,24 +104,21 @@ public abstract class HandMatcher {
             positions = new ArrayList<>(4);
         }
 
-        void find() {
-            if (m.find()) {
+        public void find() {
+            while (m.find()) {
                 positions.add(m.start());
-                while (m.find()) {
-                    positions.add(m.start());
-                }
             }
             isFoundOut = true;
         }
 
-        boolean isMatch() {
+        public boolean isMatch() {
             if (!isFoundOut) {
                 throw new RuntimeException("The 'find()' method must be called before.");
             }
             return !positions.isEmpty();
         }
 
-        List<Integer> getPositions() {
+        public List<Integer> getPositions() {
             return positions;
         }
     }
