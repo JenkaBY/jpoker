@@ -1,8 +1,9 @@
-package by.jenka.jpoker.hand.matcher.shared;
+package by.jenka.jpoker.hand.matcher;
 
 import by.jenka.jpoker.card.Card;
 import by.jenka.jpoker.card.sorting.CardComparator;
 import by.jenka.jpoker.factory.RankFactory;
+import by.jenka.jpoker.hand.matcher.position_finder.PositionFinder;
 import by.jenka.jpoker.rank.Rank;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public abstract class HandMatcherByRank extends AbstractHandMatcher {
 
     public HandMatcherByRank(List<Card> hand) {
         super(hand);
-        this.rankPositions = new ArrayList<>(MAX_CARDS_IN_HAND);
+        this.rankPositions = new ArrayList<>(MAX_CARDS_ON_TABLE);
     }
 
     @Override
@@ -25,9 +26,16 @@ public abstract class HandMatcherByRank extends AbstractHandMatcher {
         return super.isMatch() && isMatchSumRanks();
     }
 
+    @Override
     public List<Card> getWinnerCards() {
-        return getWinnerHands(getWinnerRankClasses())
+        return getUnlimitedWinnerCards().stream()
                 .limit(getMinHandSize())
+                .collect(toList());
+    }
+
+    @Override
+    public List<Card> getUnlimitedWinnerCards() {
+        return getWinnerHands(getWinnerRankClasses())
                 .collect(toList());
     }
 
@@ -44,7 +52,7 @@ public abstract class HandMatcherByRank extends AbstractHandMatcher {
                 .collect(toList());
     }
 
-    protected boolean isMatchSumRanks() {
+    private boolean isMatchSumRanks() {
         rankPositionFinder.find();
         rankPositions.addAll(rankPositionFinder.getPositions());
         return rankPositionFinder.isMatch();

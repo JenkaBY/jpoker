@@ -34,6 +34,11 @@ public class Deck52Cards extends AbstractDeck52Cards {
                 cards.add(new StandardCard(suit, rank));
             });
         });
+        shuffle();
+    }
+
+    private void shuffle() {
+        Collections.shuffle(this.getCards());
         Collections.shuffle(this.getCards());
     }
 

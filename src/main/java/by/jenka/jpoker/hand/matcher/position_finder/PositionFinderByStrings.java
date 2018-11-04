@@ -1,4 +1,4 @@
-package by.jenka.jpoker.hand.matcher.shared;
+package by.jenka.jpoker.hand.matcher.position_finder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,9 +7,9 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 public class PositionFinderByStrings implements PositionFinder {
-    protected String[] patterns;
-    protected String input;
-    protected final Set<Integer> foundPositions;
+    private String[] patterns;
+    private String input;
+    private final Set<Integer> foundPositions;
 
     public PositionFinderByStrings(String input, String... patterns) {
         this.patterns = patterns;

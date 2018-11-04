@@ -1,4 +1,4 @@
-package by.jenka.jpoker.hand.matcher.shared;
+package by.jenka.jpoker.hand.matcher.position_finder;
 
 import java.util.regex.Matcher;
 import java.util.stream.IntStream;

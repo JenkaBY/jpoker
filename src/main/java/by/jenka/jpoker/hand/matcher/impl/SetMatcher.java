@@ -1,8 +1,8 @@
-package by.jenka.jpoker.hand.matcher;
+package by.jenka.jpoker.hand.matcher.impl;
 
 import by.jenka.jpoker.card.Card;
-import by.jenka.jpoker.hand.matcher.shared.HandMatcherByRank;
-import by.jenka.jpoker.hand.matcher.shared.PositionFinderByStrings;
+import by.jenka.jpoker.hand.matcher.HandMatcherByRank;
+import by.jenka.jpoker.hand.matcher.position_finder.PositionFinderByStrings;
 
 import java.util.List;
 
