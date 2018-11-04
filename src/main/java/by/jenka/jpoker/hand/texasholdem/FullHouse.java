@@ -4,6 +4,6 @@ public class FullHouse extends TexasHoldemHand {
 
     @Override
     public int getRankValue() {
-        return 40;
+        return 30;
     }
 }

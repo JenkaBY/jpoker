@@ -4,6 +4,6 @@ public class FourKind extends TexasHoldemHand {
 
     @Override
     public int getRankValue() {
-        return 30;
+        return 20;
     }
 }

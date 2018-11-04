@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TestSortingCards extends UtilsTest {
+public class TestSortingCards extends BaseTest {
 
     @Test
     public void testDeckSortingByRank() {
@@ -30,11 +30,11 @@ public class TestSortingCards extends UtilsTest {
                 .distinct()
                 .collect(Collectors.toList());
 
-        final List<Rank> immitated = getSortedRanks().subList(0, 2);
+        final List<Rank> imitated = getSortedRanks().subList(0, 2);
         final int first = 0;
         final int second = 0;
-        Rank firstRank = immitated.get(first);
-        Rank secondRank = immitated.get(second);
+        Rank firstRank = imitated.get(first);
+        Rank secondRank = imitated.get(second);
 
         if (firstRank.equals(shuffled.get(first)) && secondRank.equals(shuffled.get(second))) {
             Assertions.fail("Deck must be shuffled.");

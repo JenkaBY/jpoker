@@ -3,7 +3,7 @@ package by.jenka.jpoker.hand;
 import by.jenka.jpoker.BaseTest;
 import by.jenka.jpoker.card.Card;
 import by.jenka.jpoker.card.StandardCard;
-import by.jenka.jpoker.hand.matcher.TwoPairMatcher;
+import by.jenka.jpoker.hand.matcher.SetMatcher;
 import by.jenka.jpoker.hand.matcher.shared.HandMatcher;
 import by.jenka.jpoker.hand.texasholdem.*;
 import by.jenka.jpoker.rank.Ace;
@@ -17,39 +17,37 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TestTwoPairMatcher extends BaseTest {
+public class TestSetMatcher extends BaseTest {
 
     @Test
     public void testHandWithTwoCards() {
         final List<Card> cards = Arrays.asList(
                 new StandardCard(HEART, new Two()),
-                new StandardCard(CLUB, new Two()),
-                new StandardCard(SPIDE, new Three())
+                new StandardCard(CLUB, new Two())
         );
-        HandMatcher handMatcher = new TwoPairMatcher(cards);
+        HandMatcher handMatcher = new SetMatcher(cards);
 
         Assertions.assertFalse(handMatcher.isMatch(), "Too low cards in hand.");
         Assertions.assertEquals(0, handMatcher.getWinnerCards().size());
     }
 
     @Test
-    public void testTwoPairs() {
+    public void testSet() {
         final List<Card> fiveCards = Arrays.asList(
                 new StandardCard(HEART, new Two()),
                 new StandardCard(SPIDE, new Three()),
-                new StandardCard(CLUB, new Two()),
+                new StandardCard(CLUB, new Three()),
                 new StandardCard(DIAMOND, new Three()),
                 new StandardCard(DIAMOND, new Jack())
         );
 
-        HandMatcher handMatcher = new TwoPairMatcher(fiveCards);
+        HandMatcher handMatcher = new SetMatcher(fiveCards);
 
         Assertions.assertTrue(handMatcher.isMatch(), "Should be matched");
-        Assertions.assertEquals(4, handMatcher.getWinnerCards().size());
+        Assertions.assertEquals(3, handMatcher.getWinnerCards().size());
         String expected = toString(
                 sort(
-                        new StandardCard(HEART, new Two()),
-                        new StandardCard(CLUB, new Two()),
+                        new StandardCard(CLUB, new Three()),
                         new StandardCard(SPIDE, new Three()),
                         new StandardCard(DIAMOND, new Three())
                 ).collect(Collectors.toList())
@@ -59,32 +57,56 @@ public class TestTwoPairMatcher extends BaseTest {
     }
 
     @Test
-    public void testThreePairs() {
+    public void testSetEdgeCase() {
         final List<Card> fiveCards = Arrays.asList(
                 new StandardCard(HEART, new Two()),
-                new StandardCard(SPIDE, new Three()),
+                new StandardCard(SPIDE, new Ace()),
                 new StandardCard(CLUB, new Ace()),
+                new StandardCard(DIAMOND, new Ace()),
+                new StandardCard(DIAMOND, new Jack())
+        );
+
+        HandMatcher handMatcher = new SetMatcher(fiveCards);
+
+        Assertions.assertTrue(handMatcher.isMatch(), "Should be matched");
+        Assertions.assertEquals(3, handMatcher.getWinnerCards().size());
+        String expected = toString(
+                sort(
+                        new StandardCard(CLUB, new Ace()),
+                        new StandardCard(SPIDE, new Ace()),
+                        new StandardCard(DIAMOND, new Ace())
+                ).collect(Collectors.toList())
+        );
+        String actual = toString(handMatcher.getWinnerCards());
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testThreePairs() {
+        final List<Card> sevenCards = Arrays.asList(
+                new StandardCard(HEART, new Three()),
+                new StandardCard(SPIDE, new Three()),
+                new StandardCard(HEART, new Jack()),
                 new StandardCard(DIAMOND, new Two()),
                 new StandardCard(DIAMOND, new Jack()),
                 new StandardCard(CLUB, new Jack()),
                 new StandardCard(CLUB, new Three())
         );
 
-        HandMatcher handMatcher = new TwoPairMatcher(fiveCards);
+        HandMatcher handMatcher = new SetMatcher(sevenCards);
 
         Assertions.assertTrue(handMatcher.isMatch(), "Should be matched");
-        final List<Card> winnerCards = handMatcher.getWinnerCards();
+        Assertions.assertEquals(3, handMatcher.getWinnerCards().size());
+
         String expected = toString(
                 sort(
-                        new StandardCard(SPIDE, new Three()),
-                        new StandardCard(CLUB, new Three()),
+                        new StandardCard(HEART, new Jack()),
                         new StandardCard(DIAMOND, new Jack()),
                         new StandardCard(CLUB, new Jack())
                 ).collect(Collectors.toList())
         );
-        String actual = toString(winnerCards);
 
-        Assertions.assertEquals(4, winnerCards.size());
+        final String actual = toString(handMatcher.getWinnerCards());
         Assertions.assertEquals(expected, actual);
     }
 
