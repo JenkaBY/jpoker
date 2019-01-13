@@ -1,7 +1,10 @@
-package by.jenka.jpoker.deck;
+package by.jenka.jpoker.deck.impl;
 
 import by.jenka.jpoker.card.Card;
-import by.jenka.jpoker.card.StandardCard;
+import by.jenka.jpoker.card.impl.StandardCard;
+import by.jenka.jpoker.deck.AbstractDeck52Cards;
+import by.jenka.jpoker.rank.Rank;
+import by.jenka.jpoker.suit.Suit;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,19 +12,11 @@ import java.util.List;
 
 public class Deck52Cards extends AbstractDeck52Cards {
     private List<Card> cards;
-    private static Deck DECK;
 
-    private Deck52Cards() {
+    public Deck52Cards() {
         super();
         cards = new ArrayList<>();
         fillDeck();
-    }
-
-    public static Deck getInstance() {
-        if (DECK == null) {
-            DECK = new Deck52Cards();
-        }
-        return DECK;
     }
 
     @Override
@@ -31,7 +26,7 @@ public class Deck52Cards extends AbstractDeck52Cards {
         }
         this.getAllRanks().forEach(rank -> {
             getAllSuits().forEach(suit -> {
-                cards.add(new StandardCard(suit, rank));
+                cards.add(initCard(suit, rank));
             });
         });
         shuffle();
@@ -39,12 +34,15 @@ public class Deck52Cards extends AbstractDeck52Cards {
 
     private void shuffle() {
         Collections.shuffle(this.getCards());
-        Collections.shuffle(this.getCards());
     }
 
     @Override
     public List<Card> getCards() {
         return this.cards;
+    }
+
+    private Card initCard(Suit suit, Rank rank) {
+        return new StandardCard(suit, rank);
     }
 
 }

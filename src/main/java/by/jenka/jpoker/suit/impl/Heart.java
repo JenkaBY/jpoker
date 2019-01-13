@@ -1,4 +1,6 @@
-package by.jenka.jpoker.suit;
+package by.jenka.jpoker.suit.impl;
+
+import by.jenka.jpoker.suit.AbstractSuit;
 
 public class Heart extends AbstractSuit {
     @Override

@@ -1,5 +1,6 @@
-package by.jenka.jpoker.card;
+package by.jenka.jpoker.card.impl;
 
+import by.jenka.jpoker.card.Card;
 import by.jenka.jpoker.rank.Rank;
 import by.jenka.jpoker.suit.Suit;
 import lombok.EqualsAndHashCode;

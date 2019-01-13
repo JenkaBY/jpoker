@@ -3,7 +3,7 @@ package by.jenka.jpoker.hand;
 import by.jenka.jpoker.BaseTest;
 import by.jenka.jpoker.hand.texasholdem.*;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class TestHands extends BaseTest {
-    @RepeatedTest(10)
+    @Test
     public void testRankValues() {
         final List<Hand> sortedHands = getSortedHands();
         List<Hand> unsorted = new ArrayList<>(Collections.nCopies(sortedHands.size(), null));

@@ -1,12 +1,17 @@
 package by.jenka.jpoker;
 
 import by.jenka.jpoker.card.Card;
-import by.jenka.jpoker.card.StandardCard;
+import by.jenka.jpoker.card.impl.StandardCard;
 import by.jenka.jpoker.card.sorting.CardComparator;
 import by.jenka.jpoker.deck.Deck;
-import by.jenka.jpoker.deck.Deck52Cards;
-import by.jenka.jpoker.rank.*;
-import by.jenka.jpoker.suit.*;
+import by.jenka.jpoker.deck.impl.Deck52Cards;
+import by.jenka.jpoker.rank.Rank;
+import by.jenka.jpoker.rank.impl.*;
+import by.jenka.jpoker.suit.Suit;
+import by.jenka.jpoker.suit.impl.Club;
+import by.jenka.jpoker.suit.impl.Diamond;
+import by.jenka.jpoker.suit.impl.Heart;
+import by.jenka.jpoker.suit.impl.Spide;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.Arrays;
@@ -23,7 +28,7 @@ public class BaseTest {
 
     @BeforeEach
     public void initDecks() {
-        deck = Deck52Cards.getInstance();
+        deck = new Deck52Cards();
     }
 
     protected Deck getDeck() {

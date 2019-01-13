@@ -1,6 +1,7 @@
 package by.jenka.jpoker.factory;
 
-import by.jenka.jpoker.rank.*;
+import by.jenka.jpoker.rank.Rank;
+import by.jenka.jpoker.rank.impl.*;
 
 public class RankFactory {
     public static Rank getRankFromPosition(int position) {

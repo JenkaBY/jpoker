@@ -1,4 +1,6 @@
-package by.jenka.jpoker.rank;
+package by.jenka.jpoker.rank.impl;
+
+import by.jenka.jpoker.rank.FrenchRank;
 
 public final class Queen extends FrenchRank {
     @Override

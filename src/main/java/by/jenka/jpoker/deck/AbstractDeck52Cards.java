@@ -1,7 +1,12 @@
 package by.jenka.jpoker.deck;
 
-import by.jenka.jpoker.rank.*;
-import by.jenka.jpoker.suit.*;
+import by.jenka.jpoker.rank.Rank;
+import by.jenka.jpoker.rank.impl.*;
+import by.jenka.jpoker.suit.Suit;
+import by.jenka.jpoker.suit.impl.Club;
+import by.jenka.jpoker.suit.impl.Diamond;
+import by.jenka.jpoker.suit.impl.Heart;
+import by.jenka.jpoker.suit.impl.Spide;
 
 import java.util.Arrays;
 import java.util.Collections;

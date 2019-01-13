@@ -2,14 +2,14 @@ package by.jenka.jpoker.hand;
 
 import by.jenka.jpoker.BaseTest;
 import by.jenka.jpoker.card.Card;
-import by.jenka.jpoker.card.StandardCard;
+import by.jenka.jpoker.card.impl.StandardCard;
 import by.jenka.jpoker.hand.matcher.HandMatcher;
 import by.jenka.jpoker.hand.matcher.impl.SetMatcher;
 import by.jenka.jpoker.hand.texasholdem.*;
-import by.jenka.jpoker.rank.Ace;
-import by.jenka.jpoker.rank.Jack;
-import by.jenka.jpoker.rank.Three;
-import by.jenka.jpoker.rank.Two;
+import by.jenka.jpoker.rank.impl.Ace;
+import by.jenka.jpoker.rank.impl.Jack;
+import by.jenka.jpoker.rank.impl.Three;
+import by.jenka.jpoker.rank.impl.Two;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
